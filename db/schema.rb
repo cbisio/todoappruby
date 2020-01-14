@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_14_113953) do
+ActiveRecord::Schema.define(version: 2020_01_14_120601) do
 
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.boolean "done"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "todo_id"
+    t.index ["todo_id"], name: "index_items_on_todo_id"
   end
 
   create_table "todos", force: :cascade do |t|
@@ -24,6 +26,10 @@ ActiveRecord::Schema.define(version: 2020_01_14_113953) do
     t.string "created_by"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "item_id"
+    t.index ["item_id"], name: "index_todos_on_item_id"
   end
 
+  add_foreign_key "items", "todos"
+  add_foreign_key "todos", "items"
 end
