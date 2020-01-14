@@ -12,7 +12,7 @@ require 'rspec/rails'
 require 'database_cleaner'
 
 Shoulda::Matchers.configure do |config|
-  config.intregate do |with|
+  config.integrate do |with|
     with.test_framework :rspec
     with.library :rails
   end
@@ -59,6 +59,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
   end
 
+  # start the transaction strage as examples are run
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
       example.run
