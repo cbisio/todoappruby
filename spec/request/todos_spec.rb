@@ -8,7 +8,7 @@ RSpec.describe 'Todo Api request', type: :request do
         before { get '/todos'}
         
         it 'returns status code 200' do
-            expect(response).to have__http_status(200)
+            expect(response).to have_http_status(200)
         end
 
         it 'return not empty' do
