@@ -10,6 +10,10 @@ class TodosController < ApplicationController
         json_response(Todo.create!(create_params),:created)
     end
 
+    def show
+        json_response(Todo.find(params[:id]))
+    end
+
     private
     def create_params
         params.require(:todo).permit(:title,:created_by)
