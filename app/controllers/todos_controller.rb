@@ -1,12 +1,13 @@
 class TodosController < ApplicationController
     
-    
+    include Response
+
     def index
-        render json: Todo.all , status: :ok
+        json_response(Todo.all)
     end
 
     def create
-        render json: Todo.create(create_params), status:  :created
+        json_response(Todo.create!(create_params),:created)
     end
 
     private
