@@ -16,6 +16,6 @@ class TodosController < ApplicationController
 
     private
     def create_params
-        params.require(:todo).permit(:title,:created_by)
+        params.require(:todo).permit(:title,:created_by, :user_id)
     end
 end

@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Todo Api request', type: :request do
     ## Arrange test data
+    let!(:users){create_list(:user, 5)}
     let!(:todos){create_list(:todo, 5)}
 
     describe 'GET /todos' do
@@ -24,7 +25,7 @@ RSpec.describe 'Todo Api request', type: :request do
         
         context 'when the request is valid' do
             req_payload = {
-                todo: {  title: 'Superman', created_by:'xavi'}
+                todo: {  title: 'Superman', created_by:'xavi', user_id:1}
             }
             
             before { post '/todos', params:req_payload}

@@ -45,6 +45,7 @@ group :test do
   gem 'faker'
   gem 'database_cleaner'
   gem 'rubocop-rspec'
+  gem 'rubocop-faker'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
