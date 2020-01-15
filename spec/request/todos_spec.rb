@@ -50,4 +50,28 @@ RSpec.describe 'Todo Api request', type: :request do
             end
         end
     end
+
+    describe 'GET /todos /:id' do
+        
+        context 'when todo exist' do
+            before { get '/todos/1'}
+            it 'return statuscode = 200' do
+                expect(response).to have_http_status(200)
+
+            end
+            it 'returns id = 1' do
+                expect (json['id']).to eq(1)
+            end
+        end
+
+        context 'when todo no exists' do
+            before { get '/todos/1000'}
+            it 'return statuscode = 204' do
+                expect(response).to have_http_status=(204)
+            end
+        end
+
+
+    end
+
 end
