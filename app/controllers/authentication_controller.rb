@@ -9,7 +9,8 @@ class AuthenticationController < ApplicationController
          print @user.password
          
          if @user && @user.authenticate('pass')
-                     json_response(token: "añlfjñajñlajñlfjs")    
+            @token = JwtService::encode([user_id:@user.id,name:@user.name])        
+            json_response(token: @token)    
         else
              Logger.error "No existe usuario"       
          end
