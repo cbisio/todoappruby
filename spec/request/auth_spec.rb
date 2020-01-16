@@ -7,10 +7,10 @@ RSpec.describe 'Authentication', type: :request do
 
         context 'When auth request is valid' do
             let!(:user) {create(:user)}
-       
-         
+            
             it 'return status code 200' do
-
+                
+         
                 payload= 
                     {
                     email: user.email,

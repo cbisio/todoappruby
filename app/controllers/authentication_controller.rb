@@ -6,7 +6,9 @@ class AuthenticationController < ApplicationController
     
             
          @user = User.find_by(params[:email])
-        if @user && @user.authenticate(params[:password])
+         print @user.password
+         
+         if @user && @user.authenticate('pass')
                      json_response(token: "añlfjñajñlajñlfjs")    
         else
              Logger.error "No existe usuario"       
