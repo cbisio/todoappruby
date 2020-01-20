@@ -4,9 +4,12 @@ class ApplicationController < ActionController::API
 before_action :auth_request
 
 
+
+
+
 private
 def auth_request
-    render json: "Existe cabecera", status: :ok
+    @user  = (AuthService.new(request.headers).call)[:user]
 end
 
 end

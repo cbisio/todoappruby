@@ -12,7 +12,7 @@ class JwtService
         result = JWT.decode(token, SECRET_KEY)[0]
         HashWithIndifferentAccess.new result
     rescue JWT::DecodeError => e
-        Logger.error e.message
+        print e.message
     end
 
 end
