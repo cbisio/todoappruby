@@ -4,12 +4,14 @@ module ExceptionHandler
     class MissingToken < StandardError; end
     class InvalidToken < StandardError; end
     class AuthenticationError <StandardError; end
+    class UserAlreadyExists <StandardError; end
 
 
 
 
     included do
 
+        rescue_from ExceptionHandler::UserAlreadyExists, with: :UserAlreadyExists
         rescue_from ExceptionHandler::MissingToken, with: :unauthorized
         rescue_from ExceptionHandler::InvalidToken, with: :unauthorized
         rescue_from ExceptionHandler::AuthenticationError, with: :unauthorized
@@ -23,5 +25,7 @@ module ExceptionHandler
         json_response({message: e.message}, :unauthorized)
     end
 
-
+    def UserAlreadyExists(e)
+        json_response({message: e.message}, :conflict)
+    end
 end
