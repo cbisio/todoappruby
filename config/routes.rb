@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   post "/signup", to: "users#create"
   resources :todos do
   end 
+  resources :tasks do
+  end 
 end
