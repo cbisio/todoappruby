@@ -4,9 +4,10 @@ RSpec.describe 'Todo Api request', type: :request do
     ## Arrange test data
     let!(:users){create_list(:user, 5)}
     let!(:todos){create_list(:todo, 5)}
+    let(:headers){valid_headers}
 
     describe 'GET /todos' do
-        before { get '/todos'}
+        before { get '/todos', headers: headers}
         
         it 'returns status code 200' do
             expect(response).to have_http_status(200)
@@ -26,9 +27,9 @@ RSpec.describe 'Todo Api request', type: :request do
         context 'when the request is valid' do
             req_payload = {
                 todo: {  title: 'Superman', created_by:'xavi', user_id:1}
-            }
+        }.to_json
             
-            before { post '/todos', params:req_payload}
+            before { post '/todos', params:req_payload, headers: headers}
             it 'return status code 201' do
                 expect(response).to have_http_status(201)
             end
@@ -44,8 +45,8 @@ RSpec.describe 'Todo Api request', type: :request do
             
             req_payload = {
                 todo: { title:'superman'}
-            }
-            before { post '/todos', params:req_payload}
+            }.to_json
+            before { post '/todos', params:req_payload, headers:headers}
             it 'returns status code 422' do
                 expect(response).to have_http_status(422)
             end
@@ -55,7 +56,7 @@ RSpec.describe 'Todo Api request', type: :request do
     describe 'GET /todos /:id' do
         
         context 'when todo exist' do
-            before { get '/todos/1'}
+            before { get '/todos/1', headers:headers}
             it 'return statuscode = 200' do
                 expect(response).to have_http_status(200)
 
@@ -66,13 +67,20 @@ RSpec.describe 'Todo Api request', type: :request do
         end
 
         context 'when todo no exists' do
-            before { get '/todos/1000'}
+            before { get '/todos/1000', headers:headers}
             it 'return statuscode = 404' do
-                expect(response).to have_http_status(204)
+                expect(response).to have_http_status(404)
             end
         end
 
 
+    end
+
+    def valid_headers
+        {
+            "Authorization" =>JwtService.encode([user_id:1]),
+            "Content-Type"=>"application/json" 
+        }
     end
 
 end
