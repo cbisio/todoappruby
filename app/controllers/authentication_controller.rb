@@ -1,7 +1,6 @@
 class AuthenticationController < ApplicationController
 
-
-
+    skip_before_action :auth_request, only: :login 
     def login
     
             
