@@ -3,8 +3,9 @@ Rails.application.routes.draw do
   get "/health" , to: 'health#health'
   post "/auth/login", to: "authentication#login"
   post "/signup", to: "users#create"
+  
   resources :todos do
-  end 
-  resources :tasks do
-  end 
+      resources :tasks
+  end
+   
 end

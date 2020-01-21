@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
   belongs_to :todo
 
-  validates :name, :done, :todo_id, presence: true
+  validates :name, :done, presence: true
 end

@@ -7,8 +7,8 @@ RSpec.describe 'Tasks Api request', type: :request do
     let!(:tasks){create_list(:task, 5)}
     let(:headers){valid_headers}
 
-    describe 'GET /tasks' do
-        before { get '/tasks', headers: headers}
+    describe 'GET /todos/1/tasks' do
+        before { get '/todos/1/tasks', headers: headers}
         
         it 'returns status code 200' do
             expect(response).to have_http_status(200)
@@ -23,14 +23,14 @@ RSpec.describe 'Tasks Api request', type: :request do
         end 
     end
 
-    describe 'POST /tasks' do
+    describe 'POST /todos/1/tasks' do
         
         context 'when the request is valid' do
             req_payload = {
-                tasks: {  name: 'Superman', description:'xavi', todo_id: 1, done:true}
+                tasks: {  name: 'Superman', description:'xavi', done:true}
         }.to_json
             
-            before { post '/tasks', params:req_payload, headers: headers}
+            before { post '/todos/1/tasks', params:req_payload, headers: headers}
             it 'return status code 201' do
                 expect(response).to have_http_status(201)
             end
