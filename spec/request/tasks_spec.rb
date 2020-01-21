@@ -4,11 +4,12 @@ RSpec.describe 'Tasks Api request', type: :request do
     ## Arrange test data
     let!(:user){create(:user)}
     let!(:todo){create(:todo)}
-    let!(:tasks){create_list(:task, 5)}
+    let!(:tasks){create_list(:task, 5, todo_id: todo.id)}
+    let(:todo_id){todo.id}
     let(:headers){valid_headers}
 
-    describe 'GET /todos/1/tasks' do
-        before { get '/todos/1/tasks', headers: headers}
+    describe 'GET /todos/:todo_id/tasks' do
+        before { get "/todos/#{todo_id}/tasks", headers: headers}
         
         it 'returns status code 200' do
             expect(response).to have_http_status(200)
@@ -30,7 +31,7 @@ RSpec.describe 'Tasks Api request', type: :request do
                 tasks: {  name: 'Superman', description:'xavi', done:true}
         }.to_json
             
-            before { post '/todos/1/tasks', params:req_payload, headers: headers}
+            before { post "/todos/#{todo_id}/tasks", params:req_payload, headers: headers}
             it 'return status code 201' do
                 expect(response).to have_http_status(201)
             end
@@ -47,7 +48,7 @@ RSpec.describe 'Tasks Api request', type: :request do
             req_payload = {
                 tasks: { name:'superman'}
             }.to_json
-            before { post '/tasks', params:req_payload, headers:headers}
+            before { post "/todos/#{todo_id}/tasks", params:req_payload, headers:headers}
             it 'returns status code 422' do
                 expect(response).to have_http_status(422)
             end
@@ -57,7 +58,7 @@ RSpec.describe 'Tasks Api request', type: :request do
     describe 'GET /tasks /:id' do
         
         context 'when todo exist' do
-            before { get '/tasks/1', headers:headers}
+            before { get "/todos/#{todo_id}/tasks/1", headers:headers}
             it 'return statuscode = 200' do
                 expect(response).to have_http_status(200)
 
@@ -68,7 +69,7 @@ RSpec.describe 'Tasks Api request', type: :request do
         end
 
         context 'when task  no exists' do
-            before { get '/task/1000', headers:headers}
+            before { get '/todos/#{todo_id}/tasks/1000', headers:headers}
             it 'return statuscode = 404' do
                 expect(response).to have_http_status(404)
             end

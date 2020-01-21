@@ -3,6 +3,6 @@ FactoryBot.define do
     name { Faker::Lorem.word }
     description {Faker::Lorem.word}
     done { true }
-    todo_id {1}
+    todo_id { nil }
   end
 end

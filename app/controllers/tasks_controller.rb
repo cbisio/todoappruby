@@ -5,14 +5,14 @@ class TasksController < ApplicationController
     end
 
     def create
-        @task = Task.create!(task_params)
-        return json_response(@task, :created)     
+        @Todo = Todo.find(params[:todo_id])
+        return json_response(@Todo.tasks.create!(task_params), :created)
     end
 
     private
     
     def task_params
-        params.require(:tasks).permit(:name, :description, :done, :todo_id)
+        params.require(:tasks).permit(:name, :description, :done)
     end
 
 end
