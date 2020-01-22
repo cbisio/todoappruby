@@ -9,6 +9,14 @@ class TasksController < ApplicationController
         return json_response(@Todo.tasks.create!(task_params), :created)
     end
 
+    def show
+        @task = Task.find(params[:id])
+        @todo = Todo.find(@task.todo_id)
+        if verify_user_token(@todo) == true
+            return json_response(@task)
+        end
+    end
+
     private
     
     def task_params

@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-    include Response , ExceptionHandler
+    include Response , ExceptionHandler, TokenHandler
 
 before_action :auth_request
 
