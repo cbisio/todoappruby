@@ -1,8 +1,8 @@
 class EmailSuscribersWorker
     include Sidekiq::Worker
 
-    def perform()
-        put "HOla mundo"
+    def perform(email)
+       mail = UserMailer.welcome_email(email).deliveri_now
     end
 
 end
