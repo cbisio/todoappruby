@@ -5,8 +5,7 @@ class UsersController < ApplicationController
 
             User.exists?(email: user_params[:email]) ? raise(ExceptionHandler::UserAlreadyExists, "User AlreadyExists") : " "
             user = User.create!(user_params)
-            
-            
+            EmailSuscribersWorker.perform_async()
             token = JwtService::encode([user_id: user.id, name: user.name,iss: "badi.com" ])
             json_response({
                 token: token
